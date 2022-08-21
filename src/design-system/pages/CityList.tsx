@@ -37,6 +37,7 @@ export const CityList = () => {
     let alreadyExist = true;
     if (!ls_city?.length) {
       setLScities.push(res.city.name);
+      alreadyExist = false;
     } else {
       setLScities.push(...ls_city);
       // don't push duplicates
