@@ -1,3 +1,10 @@
+const cityApiKey =
+  process.env.REACT_APP_CITY_API_KEY ||
+  '9cGyrL1DtvEB5pUo5lJ1Iw==rJseX3amsEH7adV4';
+
+const forecastApiKey =
+  process.env.REACT_APP_FORECAST_API_KEY || 'THUDWH9998Q4PRNFG5C73TUGL';
+
 export const getCityAndForecast = async (
   city: string,
   setDisabled: Function
@@ -17,7 +24,7 @@ export const getCityAndForecast = async (
 };
 const getCity = async (city: string) => {
   const res = await fetch(`https://api.api-ninjas.com/v1/city?name=${city}`, {
-    headers: {'X-Api-Key': '9cGyrL1DtvEB5pUo5lJ1Iw==rJseX3amsEH7adV4'},
+    headers: {'X-Api-Key': cityApiKey},
   });
   const data = await res.json();
 
@@ -25,7 +32,7 @@ const getCity = async (city: string) => {
 };
 const getForecast = async (city: string) => {
   return fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=THUDWH9998Q4PRNFG5C73TUGL&contentType=json`,
+    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=${forecastApiKey}&contentType=json`,
     {
       method: 'GET',
       headers: {},
