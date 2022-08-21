@@ -11,6 +11,7 @@ import {RainIcon} from '../../svg/RainIcon';
 import {SmallSunIcon} from '../../svg/SmallSunIcon';
 import {getLocalstorage} from '../../utils/localstorage';
 import {PageTemplate} from '../templates/Template';
+import {dayRenderFormat} from '../../utils/date';
 
 const enum iconType {
   clear_night = 'clear-night',
@@ -87,7 +88,7 @@ export const Forecast = () => {
           ].map((day: any, index: number) => (
             <div key={index}>
               <div style={{fontWeight: 'bold', margin: '20px 0 10px 0'}}>
-                {new Date(day.datetime).toString().slice(0, 10)}
+                {dayRenderFormat(day.datetime)}
               </div>
               <div
                 style={{
