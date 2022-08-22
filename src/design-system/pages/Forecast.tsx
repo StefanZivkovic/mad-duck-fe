@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import './scroll.css';
-import {Grid} from '@mui/material';
+import './grid.css';
 import {useParams} from 'react-router-dom';
 import {CityForecast} from '../../model/city-forecast';
 import {AwesomeSunIcon} from '../../svg/AwesomeSunIcon';
@@ -41,83 +41,90 @@ export const Forecast = () => {
     (icon === iconType.clear_night && <CloudyIcon />) ||
     (icon === iconType.cloudy && <CloudyIcon />);
 
+  const getGeneralDetails = () => (
+    <>
+      <div style={{margin: '5px 0'}}>
+        <strong>Feels like</strong> {data.forecast.days[0].feelslike}°C
+      </div>
+      <div style={{margin: '5px 0'}}>
+        <strong>Humidity</strong> {data.forecast.days[0].humidity}%
+      </div>
+      <div style={{margin: '5px 0'}}>
+        <strong>Pressure</strong> {data.forecast.days[0].pressure} mbar
+      </div>
+      <div style={{margin: '5px 0'}}>
+        <strong>Wind</strong> {data.forecast.days[0].windspeed} m/s SE
+      </div>
+      <div style={{margin: '5px 0'}}>
+        <strong>UV index</strong> {data.forecast.days[0].uvindex}
+      </div>
+    </>
+  );
+  const cityInfo = () => (
+    <>
+      <div
+        style={{
+          fontSize: '20px',
+          fontWeight: 'bold',
+          margin: '0 0 10px 0',
+        }}
+      >
+        {data.city.name}
+      </div>
+      <div style={{margin: '0 0 5px 0'}}>{data.forecast.resolvedAddress}</div>
+      <div>
+        {data.forecast.latitude}° N, {data.forecast.longitude}° E
+      </div>
+    </>
+  );
+
   return (
     <PageTemplate>
-      <div>
-        <OverviewInfo>
-          <Grid container>
-            <Grid item xs={4}>
-              <div style={{fontSize: '20px', fontWeight: 'bold'}}>
-                {data.city.name}
-              </div>
-              <div>{data.forecast.resolvedAddress}</div>
-              <div>
-                {data.forecast.latitude}° N, {data.forecast.longitude}° E
-              </div>
-            </Grid>
-            <Grid item xs={4} textAlign='center'>
-              <AwesomeSunIcon />
-              <div style={{fontSize: '40px'}}>
-                {data.forecast.currentConditions.temp}°C
-              </div>
-            </Grid>
-            <Grid item xs={4} width='auto'>
-              <div>
-                <strong>Feels like</strong> {data.forecast.days[0].feelslike}°C
-              </div>
-              <div>
-                <strong>Humidity</strong> {data.forecast.days[0].humidity}%
-              </div>
-              <div>
-                <strong>Pressure</strong> {data.forecast.days[0].pressure} mbar
-              </div>
-              <div>
-                <strong>Wind</strong> {data.forecast.days[0].windspeed} m/s SE
-              </div>
-              <div>
-                <strong>UV index</strong> {data.forecast.days[0].uvindex}
-              </div>
-            </Grid>
-          </Grid>
-        </OverviewInfo>
-        <HourlyInfo>
-          {[
-            data.forecast.days[0],
-            data.forecast.days[1],
-            data.forecast.days[2],
-          ].map((day: any, index: number) => (
-            <div key={index}>
-              <div style={{fontWeight: 'bold', margin: '20px 0 10px 0'}}>
-                {dayRenderFormat(day.datetime)}
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  overflowX: 'auto',
-                }}
-              >
-                {day.hours.map((x: any, index: number) => (
-                  <div
-                    key={index}
-                    style={{
-                      flex: 1,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'space-between',
-                    }}
-                  >
-                    <div style={{flex: 1}}>{formatHours(x.datetime)}h</div>
-                    <div style={{margin: '20px 0 10px 0'}}>
-                      {getIcon(x.icon)}
-                    </div>
-                    <div style={{flex: 1}}>{Math.floor(x.temp)}°</div>
-                  </div>
-                ))}
-              </div>
+      <OverviewInfo className='grid-container'>
+        <div className='grid-item-1'>{cityInfo()}</div>
+        <div className='grid-item-2'>
+          <AwesomeSunIcon />
+          <div style={{fontSize: '30px'}}>
+            {data.forecast.currentConditions.temp}°C
+          </div>
+        </div>
+        <div className='grid-item-3'>{getGeneralDetails()}</div>
+      </OverviewInfo>
+      <HourlyInfo>
+        {[
+          data.forecast.days[0],
+          data.forecast.days[1],
+          data.forecast.days[2],
+        ].map((day: any, index: number) => (
+          <div key={index}>
+            <div style={{fontWeight: 'bold', margin: '20px 0 10px 0'}}>
+              {dayRenderFormat(day.datetime)}
             </div>
-          ))}
-        </HourlyInfo>
-      </div>
+            <div
+              style={{
+                display: 'flex',
+                overflowX: 'auto',
+              }}
+            >
+              {day.hours.map((x: any, index: number) => (
+                <div
+                  key={index}
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'space-between',
+                  }}
+                >
+                  <div style={{flex: 1}}>{formatHours(x.datetime)}h</div>
+                  <div style={{margin: '20px 0 10px 0'}}>{getIcon(x.icon)}</div>
+                  <div style={{flex: 1}}>{Math.floor(x.temp)}°</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </HourlyInfo>
     </PageTemplate>
   );
 };
@@ -125,7 +132,6 @@ export const Forecast = () => {
 const OverviewInfo = styled.div`
   border-radius: 16px;
   background-color: #fff;
-  width: fit-content;
   padding: 20px;
 `;
 const HourlyInfo = styled.div`
