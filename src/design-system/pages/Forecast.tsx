@@ -117,7 +117,7 @@ const OverviewInfo = styled.div`
 const HourlyInfo = styled.div`
   border-radius: 16px;
   background-color: #fff;
-  padding: 20px;
+  padding: 0 20px 20px;
   margin: 20px 0;
 `;
 
