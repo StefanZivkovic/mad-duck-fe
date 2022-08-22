@@ -12,6 +12,7 @@ import {SmallSunIcon} from '../../svg/SmallSunIcon';
 import {getLocalstorage} from '../../utils/localstorage';
 import {PageTemplate} from '../templates/Template';
 import {dayRenderFormat} from '../../utils/date';
+import {Div} from '../atoms/Div';
 
 const enum iconType {
   clear_night = 'clear-night',
@@ -43,35 +44,29 @@ export const Forecast = () => {
 
   const getGeneralDetails = () => (
     <>
-      <div style={{margin: '5px 0'}}>
+      <Div margin='5px 0'>
         <strong>Feels like</strong> {data.forecast.days[0].feelslike}°C
-      </div>
-      <div style={{margin: '5px 0'}}>
+      </Div>
+      <Div margin='5px 0'>
         <strong>Humidity</strong> {data.forecast.days[0].humidity}%
-      </div>
-      <div style={{margin: '5px 0'}}>
+      </Div>
+      <Div margin='5px 0'>
         <strong>Pressure</strong> {data.forecast.days[0].pressure} mbar
-      </div>
-      <div style={{margin: '5px 0'}}>
+      </Div>
+      <Div margin='5px 0'>
         <strong>Wind</strong> {data.forecast.days[0].windspeed} m/s SE
-      </div>
-      <div style={{margin: '5px 0'}}>
+      </Div>
+      <Div margin='5px 0'>
         <strong>UV index</strong> {data.forecast.days[0].uvindex}
-      </div>
+      </Div>
     </>
   );
   const cityInfo = () => (
     <>
-      <div
-        style={{
-          fontSize: '20px',
-          fontWeight: 'bold',
-          margin: '0 0 10px 0',
-        }}
-      >
+      <Div fontsize='20px' fontweight='bold' margin='0 0 10px 0'>
         {data.city.name}
-      </div>
-      <div style={{margin: '0 0 5px 0'}}>{data.forecast.resolvedAddress}</div>
+      </Div>
+      <Div margin='0 0 5px 0'>{data.forecast.resolvedAddress}</Div>
       <div>
         {data.forecast.latitude}° N, {data.forecast.longitude}° E
       </div>
@@ -84,9 +79,7 @@ export const Forecast = () => {
         <div className='grid-item-1'>{cityInfo()}</div>
         <div className='grid-item-2'>
           <AwesomeSunIcon />
-          <div style={{fontSize: '30px'}}>
-            {data.forecast.currentConditions.temp}°C
-          </div>
+          <Div fontsize='30px'>{data.forecast.currentConditions.temp}°C</Div>
         </div>
         <div className='grid-item-3'>{getGeneralDetails()}</div>
       </OverviewInfo>
@@ -97,31 +90,18 @@ export const Forecast = () => {
           data.forecast.days[2],
         ].map((day: any, index: number) => (
           <div key={index}>
-            <div style={{fontWeight: 'bold', padding: '20px 0 10px 0'}}>
+            <Div fontweight='bold' padding='20px 0 10px 0'>
               {dayRenderFormat(day.datetime)}
-            </div>
-            <div
-              style={{columnGap: '20px', display: 'flex', overflowX: 'auto'}}
-            >
+            </Div>
+            <FlexContainer>
               {day.hours.map((x: any, index: number) => (
-                <div
-                  key={index}
-                  style={{
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'space-between',
-                    justifyContent: 'space-between',
-                  }}
-                >
+                <FlexItem key={index}>
                   <div>{formatHours(x.datetime)}h</div>
-                  <div style={{margin: '20px 0 10px 0'}}>{getIcon(x.icon)}</div>
-                  <div style={{margin: '0 0 20px 0'}}>
-                    {Math.floor(x.temp)}°
-                  </div>
-                </div>
+                  <Div margin='20px 0 10px 0'>{getIcon(x.icon)}</Div>
+                  <Div margin='0 0 20px 0'>{Math.floor(x.temp)}°</Div>
+                </FlexItem>
               ))}
-            </div>
+            </FlexContainer>
           </div>
         ))}
       </HourlyInfo>
@@ -139,4 +119,17 @@ const HourlyInfo = styled.div`
   background-color: #fff;
   padding: 0 20px 20px;
   margin: 20px 0;
+`;
+
+const FlexContainer = styled.div`
+  column-gap: 20px;
+  display: flex;
+  overflow-x: auto;
+`;
+const FlexItem = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: space-between;
 `;
