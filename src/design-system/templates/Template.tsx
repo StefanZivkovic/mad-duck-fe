@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import {Div} from '../atoms/Div';
 
 export const PageTemplate: React.FC<{children: any}> = (props) => {
   return (
     <BackgroundDiv>
-      <div style={{padding: '30px 5% 100px'}}>
+      <Div padding='30px 5% 100px'>
         <HeaderStyled>
           <img alt='logo' />
         </HeaderStyled>
         <main>{props.children}</main>
-      </div>
+      </Div>
 
       <FooterStyled>Frontend Task | Mad Duck Code</FooterStyled>
     </BackgroundDiv>

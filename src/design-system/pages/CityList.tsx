@@ -9,6 +9,7 @@ import {getLocalstorage, setLocalstorage} from '../../utils/localstorage';
 import {CityForecast} from '../../model/city-forecast';
 import {TextField} from '../molecules/TextField';
 import {Button} from '../atoms/Button';
+import {Div} from '../atoms/Div';
 
 export const CityList = () => {
   const [cities, setCities] = useState<CityForecast[]>([]);
@@ -55,12 +56,12 @@ export const CityList = () => {
     <PageTemplate>
       <FlexContainer className='input-flex-container'>
         <FlexItem className='input-flex-item'>
-          <DivStyled margin='20px 0'>
+          <Div color='#fff' fontsize='16px' margin='20px 0'>
             <strong>Add Cities</strong>
             <br />
             <br />
             Add 5 cities whose temperature you want to track.
-          </DivStyled>
+          </Div>
 
           <form className='input-margin' onSubmit={(e) => onAddCity(e)}>
             <TextField
@@ -97,16 +98,6 @@ export const CityList = () => {
     </PageTemplate>
   );
 };
-
-const DivStyled = styled.div<{
-  padding?: string;
-  margin?: string;
-}>`
-  font-size: 16px;
-  color: #fff;
-  padding: ${({padding}) => padding};
-  margin: ${({margin}) => margin};
-`;
 
 const FlexContainer = styled.div`
   display: flex;

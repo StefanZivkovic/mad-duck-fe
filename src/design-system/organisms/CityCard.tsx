@@ -4,34 +4,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {City} from '../../model/city';
 import {Button} from '../atoms/Button';
-
-export const cards = [
-  {
-    city: 'Novi Sad',
-    country: 'Serbia',
-    temp: '12°C',
-  },
-  {
-    city: 'Belgrade',
-    country: 'Serbia',
-    temp: '12°C',
-  },
-  {
-    city: 'Paris',
-    country: 'France',
-    temp: '20°C',
-  },
-  {
-    city: 'Budapest',
-    country: 'Hungary',
-    temp: '15°C',
-  },
-  {
-    city: 'Barcelona',
-    country: 'Spain',
-    temp: '32°C',
-  },
-];
+import {Div} from '../atoms/Div';
 
 const maps: {[key: string]: string} = {
   RS: 'Serbia',
@@ -46,47 +19,24 @@ export const CityCard: React.FC<CityCardProps> = ({name, country, temp}) => {
   const navigate = useNavigate();
 
   return (
-    <div
+    <Div
       onClick={() => navigate(`/forecast/${name}`)}
-      style={{
-        backgroundColor: '#fff',
-        borderRadius: '10px',
-        textAlign: 'center',
-        minHeight: '200px',
-      }}
+      backgroundcolor='#fff'
+      borderradius='10px'
+      textalign='center'
+      minheight='200px'
     >
-      <div
-        style={{
-          paddingTop: '16px',
-          fontWeight: 'bold',
-        }}
-      >
+      <Div padding='16px 0 0 0' fontweight='bold'>
         {name}
-      </div>
-      <div style={{paddingTop: '10px', fontSize: '12px'}}>{maps[country]}</div>
-      <div
-        style={{
-          paddingTop: '20px',
-          fontSize: '28px',
-          fontWeight: 'bold',
-        }}
-      >
+      </Div>
+      <Div padding='10px 0 0 0' fontsize='12px'>
+        {maps[country]}
+      </Div>
+      <Div padding='20px 0 0 0' fontsize='28px' fontweight='bold'>
         {temp}°C
-      </div>
-      <ButtonStyled
-      // style={{
-      //   width: '70%',
-      //   marginTop: '28px',
-      //   backgroundColor: '#04353C',
-      //   color: '#fff',
-      //   fontSize: '12px',
-      //   borderRadius: '10px',
-      //   textTransform: 'capitalize',
-      // }}
-      >
-        View City
-      </ButtonStyled>
-    </div>
+      </Div>
+      <ButtonStyled>View City</ButtonStyled>
+    </Div>
   );
 };
 
