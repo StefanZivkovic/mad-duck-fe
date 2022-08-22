@@ -97,28 +97,29 @@ export const Forecast = () => {
           data.forecast.days[2],
         ].map((day: any, index: number) => (
           <div key={index}>
-            <div style={{fontWeight: 'bold', margin: '20px 0 10px 0'}}>
+            <div style={{fontWeight: 'bold', padding: '20px 0 10px 0'}}>
               {dayRenderFormat(day.datetime)}
             </div>
             <div
-              style={{
-                display: 'flex',
-                overflowX: 'auto',
-              }}
+              style={{columnGap: '20px', display: 'flex', overflowX: 'auto'}}
             >
               {day.hours.map((x: any, index: number) => (
                 <div
                   key={index}
                   style={{
-                    flex: 1,
+                    // flex: 1,
+
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'space-between',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <div style={{flex: 1}}>{formatHours(x.datetime)}h</div>
+                  <div>{formatHours(x.datetime)}h</div>
                   <div style={{margin: '20px 0 10px 0'}}>{getIcon(x.icon)}</div>
-                  <div style={{flex: 1}}>{Math.floor(x.temp)}°</div>
+                  <div style={{margin: '0 0 20px 0'}}>
+                    {Math.floor(x.temp)}°
+                  </div>
                 </div>
               ))}
             </div>
@@ -137,6 +138,6 @@ const OverviewInfo = styled.div`
 const HourlyInfo = styled.div`
   border-radius: 16px;
   background-color: #fff;
-  padding: 20px;
+  padding: 0 20px 20px;
   margin: 20px 0;
 `;
