@@ -107,8 +107,7 @@ export const Forecast = () => {
                 <div
                   key={index}
                   style={{
-                    // flex: 1,
-
+                    flex: 1,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'space-between',
